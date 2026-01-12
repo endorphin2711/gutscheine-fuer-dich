@@ -2,16 +2,48 @@
 <html lang="de">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Meine Gutscheine für dich ❤️</title>
+<title>Meine Gutscheine für dich 💙</title>
 
 <style>
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #fbc2eb, #a18cd1);
+  background: linear-gradient(135deg, #43cea2, #185a9d);
   margin: 0;
   padding: 20px;
   text-align: center;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Sternen-Hintergrund */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  animation: twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
 }
 
 h1 {
@@ -20,7 +52,7 @@ h1 {
 }
 
 .subtitle {
-  color: #fff;
+  color: #e0f7f5;
   font-size: 20px;
   margin-top: 15px;
 }
@@ -41,18 +73,37 @@ button {
 
 .card {
   background: white;
-  border-radius: 22px;
+  border-radius: 24px;
   padding: 25px;
   margin-bottom: 30px;
   font-size: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
   position: relative;
+  transition: transform 0.4s ease;
+}
+
+.card.swiped {
+  transform: translateX(40px);
 }
 
 .hint {
-  font-size: 14px;
-  color: #888;
   margin-top: 10px;
+  font-size: 14px;
+  color: #4aa3a1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.arrow {
+  animation: swipeHint 1.5s infinite;
+}
+
+@keyframes swipeHint {
+  0% { transform: translateX(0); opacity: 0.3; }
+  50% { transform: translateX(10px); opacity: 1; }
+  100% { transform: translateX(0); opacity: 0.3; }
 }
 
 .gutschein {
@@ -79,48 +130,71 @@ button {
   20% { opacity: 1; }
   100% {
     opacity: 0;
-    transform: translateY(-100px) scale(1.3);
+    transform: translateY(-110px) scale(1.3);
   }
+}
+
+.footer-text {
+  margin-top: 40px;
+  color: #e0f7f5;
+  font-size: 18px;
+  font-style: italic;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Sterne -->
+<div class="stars" id="stars"></div>
+
+<div class="content">
+
 <!-- Startseite -->
 <div id="start">
-  <h1>💝 Für die tollste Ehefrau der Welt</h1>
-  <div class="subtitle">Ich habe zwei kleine Überraschungen für dich</div>
-  <button onclick="startApp()">Überraschung öffnen ❤️</button>
+  <h1>💙 Für die tollste Ehefrau der Welt</h1>
+  <div class="subtitle">Zwei kleine Überraschungen nur für dich</div>
+  <button onclick="startApp()">Überraschung öffnen 💕</button>
 </div>
 
 <!-- Gutscheine -->
 <div id="content" class="hidden">
 
-  <h1>Deine Gutscheine 💕</h1>
+  <h1>Deine Gutscheine 💝</h1>
 
   <div class="card" data-id="g1">
     🎮 Gutschein 1
-    <div class="hint">👉 Wische nach rechts</div>
+    <div class="hint">
+      <span>Wische nach rechts</span>
+      <span class="arrow">➡️</span>
+    </div>
     <div id="g1" class="gutschein">
       <p>
         <strong>10 € Xbox Store Guthaben</strong><br><br>
-        Für entspannte Gaming-Abende – und weil ich dein Lächeln liebe ❤️
+        Für entspannte Gaming-Abende – mit ganz viel Liebe von mir ❤️
       </p>
     </div>
   </div>
 
   <div class="card" data-id="g2">
     ♨️ Gutschein 2
-    <div class="hint">👉 Wische nach rechts</div>
+    <div class="hint">
+      <span>Wische nach rechts</span>
+      <span class="arrow">➡️</span>
+    </div>
     <div id="g2" class="gutschein">
       <p>
         <strong>Therme Bad Bevensen</strong><br><br>
-        Zeit zum Abschalten, Entspannen und einfach wir zwei 💕
+        Zeit zum Abschalten, Entspannen und einfach wir zwei 🌊❤️
       </p>
     </div>
   </div>
 
+  <div class="footer-text">
+    Ich liebe dich für immer meine Ehefrau ❤️
+  </div>
+
+</div>
 </div>
 
 <!-- Hintergrundmusik -->
@@ -129,11 +203,23 @@ button {
 </audio>
 
 <script>
+/* Sterne generieren */
+const stars = document.getElementById("stars");
+for (let i = 0; i < 60; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = Math.random() * 100 + "%";
+  star.style.animationDelay = Math.random() * 5 + "s";
+  stars.appendChild(star);
+}
+
 function startApp() {
   document.getElementById("start").classList.add("hidden");
   document.getElementById("content").classList.remove("hidden");
-  document.getElementById("music").volume = 0.25;
-  document.getElementById("music").play();
+  const music = document.getElementById("music");
+  music.volume = 0.25;
+  music.play();
 }
 
 /* Swipe-Erkennung */
@@ -147,7 +233,9 @@ document.querySelectorAll(".card").forEach(card => {
   card.addEventListener("touchend", e => {
     let endX = e.changedTouches[0].clientX;
     if (endX - startX > 80) {
+      card.classList.add("swiped");
       openGutschein(card.dataset.id, card);
+      setTimeout(() => card.classList.remove("swiped"), 400);
     }
   });
 });
