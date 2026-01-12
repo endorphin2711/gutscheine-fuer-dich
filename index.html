@@ -7,10 +7,11 @@
 <style>
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  background: linear-gradient(135deg, #fbc2eb, #a18cd1);
   margin: 0;
   padding: 20px;
   text-align: center;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -20,12 +21,13 @@ h1 {
 
 .card {
   background: white;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  position: relative;
 }
 
 .gutschein {
@@ -33,32 +35,76 @@ h1 {
   margin-top: 15px;
   font-size: 18px;
   color: #444;
+  line-height: 1.5;
+}
+
+/* Herz-Animation */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 1.8s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.2);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>💝 Deine Gutscheine</h1>
+<h1>💝 Kleine Überraschungen für dich</h1>
 
-<div class="card" onclick="toggle('g1')">
-  🎁 Gutschein 1
+<div class="card" onclick="openGutschein('g1', this)">
+  🎮 Gutschein 1
   <div id="g1" class="gutschein">
-    <p>Ein gemeinsames Wochenende nur für uns ❤️</p>
+    <p>
+      <strong>10 € Xbox Store Guthaben</strong><br><br>
+      Für entspannte Abende, Gaming & ein kleines Lächeln von mir für dich ❤️
+    </p>
   </div>
 </div>
 
-<div class="card" onclick="toggle('g2')">
-  🎁 Gutschein 2
+<div class="card" onclick="openGutschein('g2', this)">
+  ♨️ Gutschein 2
   <div id="g2" class="gutschein">
-    <p>Ein Wellness-Tag deiner Wahl 🌸</p>
+    <p>
+      <strong>Therme Bad Bevensen</strong><br><br>
+      Zeit zum Abschalten, Entspannen und einfach wir zwei 💕
+    </p>
   </div>
 </div>
 
 <script>
-function toggle(id) {
+function openGutschein(id, card) {
   const el = document.getElementById(id);
-  el.style.display = el.style.display === "none" ? "block" : "none";
+  el.style.display = el.style.display === "none" || el.style.display === "" ? "block" : "none";
+  createHearts(card);
+}
+
+function createHearts(card) {
+  for (let i = 0; i < 8; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 80 + 10 + "%";
+    heart.style.bottom = "10px";
+    heart.style.animationDuration = (1.5 + Math.random()) + "s";
+    card.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2000);
+  }
 }
 </script>
 
