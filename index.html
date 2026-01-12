@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
-<title>Meine Gutscheine für dich 💙</title>
+<title>Alles Liebe zum Geburtstag 💙</title>
 
 <style>
 html, body {
@@ -49,22 +49,52 @@ body {
   min-height: 100vh;
 }
 
-/* Texte */
-h1 {
-  color: #fff;
-  margin-top: 70px;
-  font-size: 28px;
+/* Geburtstags-Start */
+.date {
+  font-size: 42px;
+  color: #ffffff;
+  margin-top: 120px;
+  animation: fadeUp 1.6s ease forwards;
 }
 
-.subtitle {
+.age {
+  font-size: 56px;
+  color: #fff;
+  margin-top: 20px;
+  font-weight: bold;
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+.birthday-text {
+  font-size: 22px;
   color: #e0f7f5;
-  font-size: 19px;
-  margin-top: 18px;
+  margin-top: 20px;
   line-height: 1.4;
+  animation: fadeUp 2.2s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px rgba(255,255,255,0.4);
+  }
+  to {
+    text-shadow: 0 0 18px rgba(255,255,255,0.9);
+  }
 }
 
 button {
-  margin-top: 70px;
+  margin-top: 80px;
   padding: 16px 36px;
   font-size: 18px;
   border-radius: 40px;
@@ -74,7 +104,7 @@ button {
 
 .hidden { display: none; }
 
-/* Karten */
+/* Karten (unverändert) */
 .card {
   background: white;
   border-radius: 26px;
@@ -91,15 +121,12 @@ button {
   transform: translateX(50px);
 }
 
-/* Gutschein-Bilder */
 .gutschein-img {
   width: 100%;
   border-radius: 18px;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin: 16px 0;
 }
 
-/* Wisch-Hinweis */
 .hint {
   margin-top: 14px;
   font-size: 14px;
@@ -126,7 +153,6 @@ button {
   line-height: 1.6;
 }
 
-/* Herzen */
 .heart {
   position: absolute;
   font-size: 22px;
@@ -154,19 +180,22 @@ button {
 
 <div class="content">
 
-<!-- Start -->
+<!-- STARTSEITE -->
 <div id="start">
-  <h1>💙 Für die tollste Ehefrau der Welt</h1>
-  <div class="subtitle">Zwei kleine Überraschungen nur für dich</div>
-  <button onclick="startApp()">Überraschung öffnen 💕</button>
+  <div class="date">13.01.2026</div>
+  <div class="age">29 🎂</div>
+  <div class="birthday-text">
+    Alles Liebe zum Geburtstag<br>
+    für die tollste Ehefrau der Welt 💙
+  </div>
+  <button onclick="startApp()">Meine Überraschungen 💕</button>
 </div>
 
-<!-- Gutscheine -->
+<!-- GUTSCHEINE -->
 <div id="content" class="hidden">
 
-  <h1>Deine Gutscheine 💝</h1>
+  <h1 style="color:white;margin-top:60px;">Deine Gutscheine 💝</h1>
 
-  <!-- Gutschein 1 -->
   <div class="card" data-id="g1">
     🎮 Gutschein 1
     <div class="hint">Wische nach rechts <span class="arrow">➡️</span></div>
@@ -177,7 +206,6 @@ button {
     </div>
   </div>
 
-  <!-- Gutschein 2 -->
   <div class="card" data-id="g2">
     ♨️ Gutschein 2
     <div class="hint">Wische nach rechts <span class="arrow">➡️</span></div>
@@ -212,8 +240,9 @@ for (let i = 0; i < 80; i++) {
 }
 
 function startApp() {
-  start.classList.add("hidden");
-  content.classList.remove("hidden");
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("content").classList.remove("hidden");
+  const music = document.getElementById("music");
   music.volume = 0.22;
   music.play();
 }
@@ -221,9 +250,7 @@ function startApp() {
 /* Swipe */
 let startX = 0;
 document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("touchstart", e => {
-    startX = e.touches[0].clientX;
-  });
+  card.addEventListener("touchstart", e => startX = e.touches[0].clientX);
   card.addEventListener("touchend", e => {
     let endX = e.changedTouches[0].clientX;
     if (endX - startX > 90) {
