@@ -19,7 +19,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Sterne */
+/* ⭐ Sterne */
 .stars {
   position: fixed;
   inset: 0;
@@ -41,6 +41,23 @@ body {
   50% { opacity: 1; }
 }
 
+/* 🎉 Konfetti */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  opacity: 0.8;
+  animation: fall 4.5s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
 .content {
   position: relative;
   z-index: 1;
@@ -49,18 +66,57 @@ body {
   min-height: 100vh;
 }
 
-/* Geburtstags-Start */
+/* 🎂 Startseite */
+.congrats {
+  font-size: 26px;
+  color: #ffffff;
+  margin-top: 90px;
+  animation: fadeUp 1.4s ease forwards;
+}
+
 .date {
   font-size: 42px;
   color: #ffffff;
-  margin-top: 120px;
-  animation: fadeUp 1.6s ease forwards;
+  margin-top: 20px;
+  animation: fadeUp 1.8s ease forwards;
+}
+
+/* Kerzen */
+.candles {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.candle {
+  width: 10px;
+  height: 30px;
+  background: #ffdede;
+  border-radius: 3px;
+  position: relative;
+}
+
+.flame {
+  width: 10px;
+  height: 14px;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  top: -14px;
+  left: 0;
+  animation: flicker 1s infinite alternate;
+}
+
+@keyframes flicker {
+  from { transform: scale(1) rotate(-2deg); }
+  to { transform: scale(1.15) rotate(2deg); }
 }
 
 .age {
   font-size: 56px;
   color: #fff;
-  margin-top: 20px;
+  margin-top: 12px;
   font-weight: bold;
   animation: glow 2.5s ease-in-out infinite alternate;
 }
@@ -70,27 +126,17 @@ body {
   color: #e0f7f5;
   margin-top: 20px;
   line-height: 1.4;
-  animation: fadeUp 2.2s ease forwards;
+  animation: fadeUp 2.3s ease forwards;
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes glow {
-  from {
-    text-shadow: 0 0 5px rgba(255,255,255,0.4);
-  }
-  to {
-    text-shadow: 0 0 18px rgba(255,255,255,0.9);
-  }
+  from { text-shadow: 0 0 5px rgba(255,255,255,0.4); }
+  to { text-shadow: 0 0 18px rgba(255,255,255,0.9); }
 }
 
 button {
@@ -104,7 +150,7 @@ button {
 
 .hidden { display: none; }
 
-/* Karten (unverändert) */
+/* Karten */
 .card {
   background: white;
   border-radius: 26px;
@@ -113,56 +159,13 @@ button {
   font-size: 20px;
   box-shadow: 0 16px 40px rgba(0,0,0,0.28);
   position: relative;
-  transition: transform 0.4s ease;
   overflow: hidden;
-}
-
-.card.swiped {
-  transform: translateX(50px);
 }
 
 .gutschein-img {
   width: 100%;
   border-radius: 18px;
   margin: 16px 0;
-}
-
-.hint {
-  margin-top: 14px;
-  font-size: 14px;
-  color: #4aa3a1;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.arrow {
-  animation: swipeHint 1.6s infinite;
-}
-
-@keyframes swipeHint {
-  0% { transform: translateX(0); opacity: 0.3; }
-  50% { transform: translateX(14px); opacity: 1; }
-  100% { transform: translateX(0); opacity: 0.3; }
-}
-
-.gutschein {
-  display: none;
-  font-size: 18px;
-  color: #444;
-  line-height: 1.6;
-}
-
-.heart {
-  position: absolute;
-  font-size: 22px;
-  animation: floatUp 2.2s ease-out forwards;
-}
-
-@keyframes floatUp {
-  0% { opacity: 0; transform: translateY(20px) scale(0.6); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-130px) scale(1.4); }
 }
 
 .footer-text {
@@ -180,52 +183,44 @@ button {
 
 <div class="content">
 
-<!-- STARTSEITE -->
+<!-- START -->
 <div id="start">
+  <div class="congrats">Herzlichen Glückwunsch<br>zum Geburtstag 💙</div>
   <div class="date">13.01.2026</div>
-  <div class="age">29 🎂</div>
-  <div class="birthday-text">
-    Alles Liebe zum Geburtstag<br>
-    für die tollste Ehefrau der Welt 💙
+
+  <div class="candles">
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
   </div>
+
+  <div class="age">29 🎂</div>
+
+  <div class="birthday-text">
+    Für die tollste Ehefrau der Welt
+  </div>
+
   <button onclick="startApp()">Meine Überraschungen 💕</button>
 </div>
 
 <!-- GUTSCHEINE -->
 <div id="content" class="hidden">
-
   <h1 style="color:white;margin-top:60px;">Deine Gutscheine 💝</h1>
 
-  <div class="card" data-id="g1">
-    🎮 Gutschein 1
-    <div class="hint">Wische nach rechts <span class="arrow">➡️</span></div>
-    <div id="g1" class="gutschein">
-      <img src="xbox.jpg" class="gutschein-img">
-      <strong>10 € Xbox Store Guthaben</strong><br><br>
-      Für entspannte Gaming-Abende – mit ganz viel Liebe von mir ❤️
-    </div>
+  <div class="card">
+    🎮 <strong>10 € Xbox Store Guthaben</strong>
+    <img src="xbox.jpg" class="gutschein-img">
   </div>
 
-  <div class="card" data-id="g2">
-    ♨️ Gutschein 2
-    <div class="hint">Wische nach rechts <span class="arrow">➡️</span></div>
-    <div id="g2" class="gutschein">
-      <img src="therme.jpg" class="gutschein-img">
-      <strong>Therme Bad Bevensen</strong><br><br>
-      Zeit zum Abschalten, Entspannen und einfach wir zwei 🌊❤️
-    </div>
+  <div class="card">
+    ♨️ <strong>Therme Bad Bevensen</strong>
+    <img src="therme.jpg" class="gutschein-img">
   </div>
 
   <div class="footer-text">
     Ich liebe dich für immer meine Ehefrau ❤️
   </div>
-
 </div>
 </div>
-
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c5e6efcc9.mp3" type="audio/mpeg">
-</audio>
 
 <script>
 /* Sterne */
@@ -239,41 +234,20 @@ for (let i = 0; i < 80; i++) {
   stars.appendChild(star);
 }
 
+/* Konfetti */
+for (let i = 0; i < 40; i++) {
+  const conf = document.createElement("div");
+  conf.className = "confetti";
+  conf.style.left = Math.random() * 100 + "%";
+  conf.style.background = ["#ff4d6d","#ffd166","#06d6a0","#ffffff"][Math.floor(Math.random()*4)];
+  conf.style.animationDelay = Math.random() * 1.5 + "s";
+  document.body.appendChild(conf);
+  setTimeout(() => conf.remove(), 5000);
+}
+
 function startApp() {
   document.getElementById("start").classList.add("hidden");
   document.getElementById("content").classList.remove("hidden");
-  const music = document.getElementById("music");
-  music.volume = 0.22;
-  music.play();
-}
-
-/* Swipe */
-let startX = 0;
-document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-  card.addEventListener("touchend", e => {
-    let endX = e.changedTouches[0].clientX;
-    if (endX - startX > 90) {
-      card.classList.add("swiped");
-      openGutschein(card.dataset.id, card);
-      setTimeout(() => card.classList.remove("swiped"), 400);
-    }
-  });
-});
-
-function openGutschein(id, card) {
-  const el = document.getElementById(id);
-  if (el.style.display === "block") return;
-  el.style.display = "block";
-  for (let i = 0; i < 12; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 80 + 10 + "%";
-    heart.style.bottom = "10px";
-    card.appendChild(heart);
-    setTimeout(() => heart.remove(), 2400);
-  }
 }
 </script>
 
