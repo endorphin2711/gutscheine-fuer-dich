@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meine Gutscheine für dich ❤️</title>
+
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gutschein {
+  display: none;
+  margin-top: 15px;
+  font-size: 18px;
+  color: #444;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💝 Deine Gutscheine</h1>
+
+<div class="card" onclick="toggle('g1')">
+  🎁 Gutschein 1
+  <div id="g1" class="gutschein">
+    <p>Ein gemeinsames Wochenende nur für uns ❤️</p>
+  </div>
+</div>
+
+<div class="card" onclick="toggle('g2')">
+  🎁 Gutschein 2
+  <div id="g2" class="gutschein">
+    <p>Ein Wellness-Tag deiner Wahl 🌸</p>
+  </div>
+</div>
+
+<script>
+function toggle(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === "none" ? "block" : "none";
+}
+</script>
+
+</body>
+</html>
